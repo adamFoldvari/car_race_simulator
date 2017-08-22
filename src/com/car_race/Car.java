@@ -43,7 +43,9 @@ public class Car {
 
     Car(){
         Random random = new Random();
+        
         normalSpeed = random.nextInt(31) + 80;
+
         int firstNameIndex = random.nextInt(carNames.size());
         name = carNames.get(firstNameIndex);
         carNames.remove(firstNameIndex);
