@@ -1,26 +1,83 @@
 package com.car_race;
 
-import sun.font.TrueTypeFont;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.List;
 
 public class Main {
-
-    public static void main(String[] args) {
-	/*  static isRaining //30% chance of rain every hour
+    /*  static isRaining //30% chance of rain every hour
         createVehicles() // creates 10 cars, 10 trucks and 10 motorcycles
         simulateRace() // simulates the race by calling moveForAnHour() on every vehicle 50 times and setting whether its raining.
         printRaceResults() // prints each vehicle's name, distance traveled ant type. */
-    Motorcycle testCycle = new Motorcycle();
-    testCycle.moveForAnHour(true);
-    testCycle.moveForAnHour(false);
-    System.out.println(testCycle.name);
-    System.out.println(testCycle.normalSpeed);
-    System.out.println(testCycle.distanceTraveled);
+    public static void main(String[] args) {
+        List vehicles = createVehicles();
+        simulateRace(vehicles);
+        printRaceResults(vehicles);
+}
 
-    Motorcycle testCycle2 = new Motorcycle();
-    testCycle2.moveForAnHour(true);
-    testCycle2.moveForAnHour(false);
-    System.out.println(testCycle2.name);
-    System.out.println(testCycle2.normalSpeed);
-    System.out.println(testCycle2.distanceTraveled);
+    public static boolean isRaining(){
+        Random random = new Random();
+        if (random.nextInt(99) +1 <= 30){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static List createVehicles(){
+        List<Object>  vehicles= new ArrayList<>();
+        for (int i = 0; i < 30; i++){
+            if (i < 10){
+                vehicles.add(new Car());
+            }
+            else if (i < 20){
+                vehicles.add(new Motorcycle());
+            }
+            else {
+                vehicles.add(new Truck());
+            }
+        }
+        return vehicles;
+    }
+
+    public static List simulateRace(List<Object> vehicles){
+        for (int i = 0; i < 50; i++){
+            boolean rain = isRaining();
+            for (Object vehicle: vehicles) {
+                if (vehicle instanceof Car){
+                    ((Car) vehicle).moveForAnHour(rain);
+                }
+                else if (vehicle instanceof Motorcycle){
+                    ((Motorcycle) vehicle).moveForAnHour(rain);
+                }
+                else {
+                    ((Truck) vehicle).moveForAnHour();
+                }
+            }
+        }
+        return vehicles;
+    }
+
+    public static void printRaceResults(List vehicles){
+        for (Object vehicle: vehicles){
+            if (vehicle instanceof Car){
+                System.out.print(((Car) vehicle).name+ " ");
+                System.out.print(((Car) vehicle).distanceTraveled+ "km" + " ");
+                System.out.println(vehicle.getClass().getSimpleName());
+
+            }
+                else if (vehicle instanceof Motorcycle){
+                System.out.print(((Motorcycle) vehicle).name + " ");
+                System.out.print(((Motorcycle) vehicle).distanceTraveled + "km" + " ");
+                System.out.println(vehicle.getClass().getSimpleName());
+            }
+            else {
+                System.out.print(((Truck) vehicle).name+ " ");
+                System.out.print(((Truck) vehicle).distanceTraveled+ "km" + " ");
+                System.out.println(vehicle.getClass().getSimpleName());
+            }
+        }
     }
 }
+

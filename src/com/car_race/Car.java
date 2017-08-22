@@ -53,9 +53,13 @@ public class Car {
         name = name + " " + carNames.get(lastNameIndex);
         }
 
-    public void moveForAnHour(){
+    public void moveForAnHour(boolean rain){
+        if (rain){
+            distanceTraveled += 70;
+        }
+        else{
         distanceTraveled += normalSpeed;
+        }
     }
-
-    }
+}
 
