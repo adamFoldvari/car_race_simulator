@@ -30,7 +30,12 @@ public class Main {
         for (int i = 0; i < 30; i++){
             if (i < 10){
                 vehicles.add(new Car());
+                Random random = new Random();
+                if (random.nextInt(99) +1 <= 30){
+                    Car.setSpeedLimit((Car) vehicles.get(i), 70);
+                }
             }
+
             else if (i < 20){
                 vehicles.add(new Motorcycle());
             }
@@ -46,7 +51,7 @@ public class Main {
             boolean rain = isRaining();
             for (Object vehicle: vehicles) {
                 if (vehicle instanceof Car){
-                    ((Car) vehicle).moveForAnHour(rain);
+                    ((Car) vehicle).moveForAnHour();
                 }
                 else if (vehicle instanceof Motorcycle){
                     ((Motorcycle) vehicle).moveForAnHour(rain);
@@ -62,22 +67,21 @@ public class Main {
     public static void printRaceResults(List vehicles){
         for (Object vehicle: vehicles){
             if (vehicle instanceof Car){
-                System.out.print(((Car) vehicle).name+ " ");
-                System.out.print(((Car) vehicle).distanceTraveled+ "km" + " ");
+                System.out.print(((Car) vehicle).getName()+ " ");
+                System.out.print(((Car) vehicle).getDistanceTraveled()+ "km" + " ");
                 System.out.println(vehicle.getClass().getSimpleName());
 
             }
                 else if (vehicle instanceof Motorcycle){
-                System.out.print(((Motorcycle) vehicle).name + " ");
-                System.out.print(((Motorcycle) vehicle).distanceTraveled + "km" + " ");
+                System.out.print(((Motorcycle) vehicle).getName() + " ");
+                System.out.print(((Motorcycle) vehicle).getDistanceTraveled() + "km" + " ");
                 System.out.println(vehicle.getClass().getSimpleName());
             }
             else {
-                System.out.print(((Truck) vehicle).name+ " ");
-                System.out.print(((Truck) vehicle).distanceTraveled+ "km" + " ");
+                System.out.print(((Truck) vehicle).getName() + " ");
+                System.out.print(((Truck) vehicle).getDistanceTraveled() + "km" + " ");
                 System.out.println(vehicle.getClass().getSimpleName());
             }
         }
     }
 }
-

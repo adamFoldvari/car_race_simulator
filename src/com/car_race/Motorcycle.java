@@ -10,22 +10,42 @@ public class Motorcycle {
        distanceTraveled
        moveForAnHour() */
 
-    int normalSpeed = 100;
+    private int normalSpeed = 100;
     static int nameNumber = 1;
-    String name;
-    int distanceTraveled = 0;
+    private String name;
+    private int distanceTraveled = 0;
+
+    public int getNormalSpeed(){
+        return this.normalSpeed;
+    }
+
+    public void setName(){
+        this.name = "Motorcycle " + nameNumber++;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setDistanceTraveled(int distance){
+        this.distanceTraveled += distance;
+    }
+
+    public int getDistanceTraveled(){
+        return this.distanceTraveled;
+    }
 
     Motorcycle(){
-        this.name = "Motorcycle " + nameNumber++;
+        this.setName();
     }
 
     public void moveForAnHour(boolean rain){
         Random random = new Random();
         if (rain){
-            distanceTraveled += (normalSpeed - (random.nextInt(46) + 5));
+            this.setDistanceTraveled(getNormalSpeed() - (random.nextInt(46) + 5));
         }
         else {
-            distanceTraveled += normalSpeed;
+            this.setDistanceTraveled(getNormalSpeed());
         }
     }
 

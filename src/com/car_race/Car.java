@@ -8,9 +8,43 @@ public class Car {
        name // Make a list from the words here: http://www.fantasynamegenerators.com/car-names.php and pick 2 randomly for each instance.
        distanceTraveled // holds the current distance traveled.
        moveForAnHour() // The vehicle travels for an hour. It increases the distance traveled. Call this from the main class only! */
-    int normalSpeed;
-    String name;
-    int distanceTraveled = 0;
+    private int normalSpeed;
+    private String name;
+    private int distanceTraveled = 0;
+
+    public void setNormalSpeed(int speed){
+        this.normalSpeed = speed;
+    }
+
+    public int getNormalSpeed(){
+        return normalSpeed;
+    }
+
+    public void setName(){
+        Random random = new Random();
+        int firstNameIndex = random.nextInt(carNames.size());
+        this.name = carNames.get(firstNameIndex);
+        carNames.remove(firstNameIndex);
+        int lastNameIndex = random.nextInt(carNames.size());
+        this.name = name + " " + carNames.get(lastNameIndex);
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setDistanceTraveled(int distance){
+        this.distanceTraveled += distance;
+    }
+
+    public int getDistanceTraveled(){
+        return this.distanceTraveled;
+    }
+
+    public static void setSpeedLimit(Car car, int speed){
+        car.setNormalSpeed(speed);
+    }
+
 
     List<String> carNames = new LinkedList<>(Arrays.asList("Augury",
                                                         "Pinnacle",
@@ -43,23 +77,12 @@ public class Car {
 
     Car(){
         Random random = new Random();
-        
-        normalSpeed = random.nextInt(31) + 80;
-
-        int firstNameIndex = random.nextInt(carNames.size());
-        name = carNames.get(firstNameIndex);
-        carNames.remove(firstNameIndex);
-        int lastNameIndex = random.nextInt(carNames.size());
-        name = name + " " + carNames.get(lastNameIndex);
+        setNormalSpeed(random.nextInt(31) + 80);
+        setName();
         }
 
-    public void moveForAnHour(boolean rain){
-        if (rain){
-            distanceTraveled += 70;
-        }
-        else{
-        distanceTraveled += normalSpeed;
-        }
+    public void moveForAnHour(){
+            setDistanceTraveled(getNormalSpeed());
     }
 }
 
