@@ -2,24 +2,23 @@ package com.car_race;
 
 import java.util.Random;
 
-public class Truck {
+public class Truck extends Vehicle {
     /* speed: 100km/h. 5% chance of breaking down for 2 hours.
        Truck drivers are boring. They call all their trucks a random number between 0 and 1000.
        breakdownTurnsLeft // holds how long its still broken down.
        distanceTraveled
        moveForAnHour() */
     Random random = new Random();
-    private final int normalSpeed = 100;
-    private int name = random.nextInt(1001);
     private int breakdownTurnsLeft;
-    private int distanceTraveled;
 
-    public int getNormalSpeed(){
-        return this.normalSpeed;
+    public Truck(){
+        setNormalSpeed(100);
+        setName();
     }
 
-    public int getName(){
-        return this.name;
+    @Override
+    public void setName(){
+        this.name = String.valueOf(random.nextInt(1001));
     }
 
     public void setBreakdownTurnsLeft(int breakdowns){
@@ -30,14 +29,7 @@ public class Truck {
         return this.breakdownTurnsLeft;
     }
 
-    public void setDistanceTraveled(int distance){
-        this.distanceTraveled += distance;
-    }
-
-    public int getDistanceTraveled(){
-        return this.distanceTraveled;
-    }
-
+    @Override
     public void moveForAnHour(){
         if (getBreakdownTurnsLeft() == 0){
             Random random = new Random();
